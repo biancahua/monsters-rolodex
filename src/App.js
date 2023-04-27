@@ -32,12 +32,17 @@ class App extends Component {
           className="search-box" 
           type="search" 
           placeholder="search monsters" 
-          onChange={(e) => {
-            this.state.monsters.filter(() => {
-              // remove all items from array that do not include the target value
+          onChange={(event) => {
+            const searchString = event.target.value.toLowerCase();
 
-            })
-            console.log(e.target.value)
+            // remove all items from array that do not include the target value
+            const filteredMonsters = this.state.monsters.filter((monster) => {
+              return monster.name.toLowerCase().includes(searchString)
+            });
+
+            this.setState(() => {
+              return { monsters: filteredMonsters }
+            }, () => { console.log(this.state.monsters)});
           }}
         />
         {this.state.monsters.map((monster) => {
