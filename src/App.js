@@ -28,6 +28,18 @@ class App extends Component {
   render() {  
     return (
       <div className="App">
+        <input 
+          className="search-box" 
+          type="search" 
+          placeholder="search monsters" 
+          onChange={(e) => {
+            this.state.monsters.filter(() => {
+              // remove all items from array that do not include the target value
+
+            })
+            console.log(e.target.value)
+          }}
+        />
         {this.state.monsters.map((monster) => {
           return <div key={monster.id} ><h1>{monster.name}</h1></div>
         })}
