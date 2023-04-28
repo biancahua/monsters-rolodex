@@ -1,5 +1,5 @@
 import { Component } from 'react';  
-import logo from './logo.svg';
+import CardList from './components/card-list/card-list.component.jsx';
 import './App.css';
 
 class App extends Component {
@@ -24,23 +24,21 @@ class App extends Component {
 
   // https://jsonplaceholder.typicode.com/users
 
+  onSearchChange = (event) => {
+    this.setState(() => {
+      return { searchString: event.target.value.toLowerCase() }
+    });
+  }
 
   
   render() {  
 
-    // const onSearchbarChange = (event) => {
-    //   this.setState(() => {
-    //         return { monsters: filteredMonsters }
-    //       }, () => { console.log(this.state.monsters)});
-    // }
-
-    // (event) => {
-    //   const searchString = event.target.value.toLowerCase();
-
-    //   
+    const { searchString, monsters } = this.state;
+    const { onSearchChange } = this;
+     
     // remove all items from array that do not include the target value
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toLowerCase().includes(this.state.searchString)
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchString)
     });
 
     return (
@@ -49,15 +47,12 @@ class App extends Component {
           className="search-box" 
           type="search" 
           placeholder="search monsters" 
-          onChange={(event) => {
-            this.setState(() => {
-              return { searchString: event.target.value }
-            }, () => { console.log(this.state.searchString) });
-          }}
+          onChange={onSearchChange}
         />
-        {filteredMonsters.map((monster) => {
+        {/* {filteredMonsters.map((monster) => {
           return <div key={monster.id} ><h1>{monster.name}</h1></div>
-        })}
+        })} */}
+        <CardList monsters={filteredMonsters}/>
       </div>
     );
   }
